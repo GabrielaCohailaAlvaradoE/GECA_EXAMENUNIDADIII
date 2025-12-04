@@ -61,6 +61,17 @@
                         </form>
                     </div>
                 </div>
+                            
+                        <div class="card">
+                            <h3>Accesos rápidos por fase</h3>
+                            <div class="actions" style="flex-wrap: wrap;">
+                                <a class="btn btn-primary" href="${pageContext.request.contextPath}/rrhh">Fase 2 · RRHH</a>
+                                <a class="btn btn-primary" href="${pageContext.request.contextPath}/gerencia">Fase 3 · Gerencia</a>
+                                <a class="btn btn-primary" href="${pageContext.request.contextPath}/tesoreria">Fase 4 · Tesorería/Contabilidad</a>
+                                <a class="btn btn-primary" href="${pageContext.request.contextPath}/empleado">Fase 6 · Empleado</a>
+                                <a class="btn btn-primary" href="${pageContext.request.contextPath}/reporte-firmas">Fase 7 · Reporte de firmas</a>
+                            </div>
+                        </div>
 
                 <div class="card">
                     <h3>Planillas generadas</h3>

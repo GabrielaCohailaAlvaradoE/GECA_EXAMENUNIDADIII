@@ -50,6 +50,14 @@ public class C_GECA_login {
         List<Obj_GECA_Planilla> planillas = loginService.listarPlanillasGeneradas();
         model.addAttribute("planillas", planillas);
 
+        
+        
+        
+        
+        
+        
+        
+        
         Obj_GECA_Planilla planillaActual = null;
         if (planillaId != null) {
             planillaActual = planillas.stream().filter(p -> p.getIdPlanilla().equals(planillaId)).findFirst()
@@ -75,6 +83,61 @@ public class C_GECA_login {
         return "V_LOGIN_GECA/Login_GECA_validar";
     }
 
+    @GetMapping("/rrhh")
+    public String vistaRRHH(Model model, HttpSession session,
+            @RequestParam(name = "planillaId", required = false) Integer planillaId,
+            RedirectAttributes redirect) {
+        if (!asegurarSesion(model, session, redirect)) {
+            return "redirect:/login";
+        }
+        cargarPlanillas(model, planillaId);
+        return "V_LOGIN_GECA/fase_rrhh";
+    }
+
+    @GetMapping("/gerencia")
+    public String vistaGerencia(Model model, HttpSession session,
+            @RequestParam(name = "planillaId", required = false) Integer planillaId,
+            RedirectAttributes redirect) {
+        if (!asegurarSesion(model, session, redirect)) {
+            return "redirect:/login";
+        }
+        cargarPlanillas(model, planillaId);
+        return "V_LOGIN_GECA/fase_gerencia";
+    }
+
+    @GetMapping("/tesoreria")
+    public String vistaTesoreria(Model model, HttpSession session,
+            @RequestParam(name = "planillaId", required = false) Integer planillaId,
+            RedirectAttributes redirect) {
+        if (!asegurarSesion(model, session, redirect)) {
+            return "redirect:/login";
+        }
+        cargarPlanillas(model, planillaId);
+        return "V_LOGIN_GECA/fase_tesoreria";
+    }
+
+    @GetMapping("/empleado")
+    public String vistaEmpleado(Model model, HttpSession session,
+            @RequestParam(name = "planillaId", required = false) Integer planillaId,
+            RedirectAttributes redirect) {
+        if (!asegurarSesion(model, session, redirect)) {
+            return "redirect:/login";
+        }
+        cargarPlanillas(model, planillaId);
+        return "V_LOGIN_GECA/fase_empleado";
+    }
+
+    @GetMapping("/reporte-firmas")
+    public String vistaReporteFirmas(Model model, HttpSession session,
+            @RequestParam(name = "planillaId", required = false) Integer planillaId,
+            RedirectAttributes redirect) {
+        if (!asegurarSesion(model, session, redirect)) {
+            return "redirect:/login";
+        }
+        cargarPlanillas(model, planillaId);
+        return "V_LOGIN_GECA/fase_reporte";
+    }
+
     @PostMapping("/login")
     public String procesarLogin(@ModelAttribute("loginForm") M_GECA_login loginForm, HttpServletRequest request,
             HttpSession session, RedirectAttributes redirect) {
@@ -95,6 +158,16 @@ public class C_GECA_login {
         session.setAttribute("usuarioGECA", usuario);
         redirect.addFlashAttribute("success", "Ingreso correcto. Bienvenido " + usuario.getNombreCompleto());
         return "redirect:/";
+    }
+
+    private boolean asegurarSesion(Model model, HttpSession session, RedirectAttributes redirect) {
+        Obj_GECA_Usuario usuario = (Obj_GECA_Usuario) session.getAttribute("usuarioGECA");
+        if (usuario == null) {
+            redirect.addFlashAttribute("error", "Debe iniciar sesión para acceder al módulo.");
+            return false;
+        }
+        model.addAttribute("usuario", usuario);
+        return true;
     }
 
     @PostMapping("/logout")
@@ -122,6 +195,12 @@ public class C_GECA_login {
         String ipActual = request.getRemoteAddr();
         String observacionFinal = observacion;
         if (requiereIpRestrictiva(usuario) && !ipCoincide(usuario, ipActual)) {
+            
+            
+            
+            
+            
+            
             observacionFinal = StringUtils.hasText(observacion) ? observacion
                     : "Firma observada por intento desde IP distinta: " + ipActual;
         }
