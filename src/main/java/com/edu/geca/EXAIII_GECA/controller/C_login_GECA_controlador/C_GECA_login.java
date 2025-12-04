@@ -35,7 +35,10 @@ public class C_GECA_login {
     }
 
     @GetMapping("/")
-    public String inicio(Model model, HttpSession session, @RequestParam(name = "planillaId", required = false) Integer planillaId) {
+    public String inicio(Model model,
+                         HttpSession session,
+                         @RequestParam(name = "planillaId", required = false) Integer planillaId) {
+
         Obj_GECA_Usuario usuario = (Obj_GECA_Usuario) session.getAttribute("usuarioGECA");
         cargarPlanillas(model, planillaId);
         model.addAttribute("usuario", usuario);
