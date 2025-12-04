@@ -43,7 +43,7 @@ public class C_GECA_login {
         cargarPlanillas(model, planillaId);
         model.addAttribute("usuario", usuario);
         model.addAttribute("loginForm", new M_GECA_login());
-        return "index";
+        return "V_LOGIN_GECA/index";
     }
 
     private void cargarPlanillas(Model model, Integer planillaId) {
